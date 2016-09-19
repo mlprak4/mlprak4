@@ -21,7 +21,12 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Test}
-author, \emph{title}.
+\bibitem{Mnih13}
+\BIBentryALTinterwordspacing
+V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~Graves, I.~Antonoglou, D.~Wierstra, and
+  M.~A. Riedmiller, ``Playing atari with deep reinforcement learning,''
+  \emph{CoRR}, vol. abs/1312.5602, 2013. [Online]. Available:
+  \url{http://arxiv.org/abs/1312.5602}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}
