@@ -1,4 +1,9 @@
-/bare_conf.aux
-/bare_conf.log
-/bare_conf.synctex.gz
+/*.mdb
+/*.out
+/*.bbl
+.DS_Store
+/*.blg
+/*.aux
+/*.log
+/*.synctex.gz
 /bare_conf.pdf

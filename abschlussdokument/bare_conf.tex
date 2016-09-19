@@ -358,10 +358,7 @@ Karlsruhe Institute of Technology}}
 
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
-\begin{abstract}
-What we did
-\end{abstract}
-
+\input{abstract}
 % no keywords
 
 
@@ -378,51 +375,15 @@ What we did
 \IEEEpeerreviewmaketitle
 
 
+\input{introduction}
 
-\section{Introduction}
-% no \IEEEPARstart
--Autonomous Driving + RL blabla?
--Task description
-	-Based on DQN\cite{Mnih13} of Atari as related work
--
+\input{setup}
 
-\section{Setup}
-% no \IEEEPARstart
--Gazebo + Ros + DQN + Communication
--
+\input{approach}
 
-\section{Approach}
+\input{evaluation}
 
-\subsection{Network}
--Structure + Parameters
--Input
--Output / Actions
-
-\subsection{Training}
--Trainings params
--Performance 
--Pause physics
--Loss + Reward plots
-
-\subsection{Reward function}
--to ease development of reward function -> coloring
--plot distance 
-
-\subsubsection{Distance based}
--Reward lacks immediate feedback
-\subsubsection{Distance and Action based}
-Subsubsection text here.
-
-\section{Evaluation}
--RMSE plots for distance and angle?
-	-for different track
-
-
-\section{Discussion}
--obstacles
--deltas
--real world
-
+\input{discussion}
 
 
 
