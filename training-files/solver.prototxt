@@ -1,0 +1,15 @@
+net: "/disk/users/mlprak4/robot_folders/checkout/ml-praktikum-v2/catkin_workspace/src/ros_dqn/data/dqn.prototxt"
+
+momentum: 0.95
+base_lr: 0.00001
+weight_decay: 0.001
+#weight_decay: 0.0
+lr_policy: "step"
+gamma: 0.1
+#power: 0.5
+stepsize: 2000000
+max_iter: 5000000
+display: 100
+
+snapshot:50000
+snapshot_prefix: "/data/mlprak4/test_solverstate_small"
