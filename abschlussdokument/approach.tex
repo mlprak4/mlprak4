@@ -2,23 +2,25 @@
 
 \section{Approach}
 
-In order to solve the task of autonomous driving in the simulation environment had to make some important decisions. First of all we specified our input source. A camera image provides more than enough information for this task. Secondly we decided to use an action set of five actions including straight, left, right, half left and half right. The angles of left and right were chosen that the car can easily complete every curve. The actions and their values are listed in \ref{woauchimmer}. To support this input and generate the required output the network was altered as described in the following section.
+In order to solve the task of autonomous driving in the simulation environment we had to make some important decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions including straight, left, right, half left and half right. The angles of left and right were chosen that the car can easily complete every curve. The actions and their values are listed in \ref{woauchimmer}. To support the mentioned input and generate the required output the given network was altered as described in the following section.
 
 \subsection{Network}
-The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. Instead of four frames we process only one frame at a time with the network, because lane following at constant speed does not require temporal information. The size of the input image is reduced to 48 $\times$ 27. At this resolution the camera image still contains enough information on the lane markings. The network has two convolution layers and two fully connected layers. Both convolutional layers use 4 $\times$ 4 kernels with a stride of 2. Layer one learns 16 filters, while layer two learns 32. The first fully connected layer has 256 neurons. The second fully connected layer computes 5 outputs, which represent the Q value for each action.
+The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. Instead of four frames we process only one frame at a time, because lane following at constant speed does not require temporal context. The size of the input image is reduced to 48 $\times$ 27. At this resolution the camera image still contains enough information on the lane markings. The network has two convolution layers and two fully connected layers. Both convolutional layers use 4 $\times$ 4 kernels with a stride of 2. Layer one learns 16 filters, while layer two learns 32. The first fully connected layer has 256 neurons. The second fully connected layer computes 5 outputs, which represent the Q value for each action.
 
 %-Structure + Parameters
 %-Input
 %-Output / Actions
 
 \subsection{Training}
-The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine, which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. 
+The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. 
 
-In training the weights of the network are adjusted all that time. Normally the simulation continues while updating the weights. To avoid frame skips in training that are not present while evaluating, we decided to pause the simulation while updating the weights.
+In training the weights of the network are adjusted every iteration. Normally the simulation continues while updating the weights. To avoid frame skips in training that are not present while evaluating, we decided to pause the simulation while updating the weights.
 
 For the network an initial learning rate of $10^{-5}$ is chosen, which is decreased by a factor of 0.1 every 2 million iterations.
 
-These settings allowed us to complete 3 to 4 million iterations per day. The plots in figure \ref{fig:lossandrew} show that the training is finished after 6 million iterations. That means that approximately 48 hours of training are needed every time a change is made. 
+These settings allowed us to complete 3 to 4 million iterations per day. The plots in figure \ref{fig:lossandrew} show that the training is finished after 6 million iterations. That means that approximately 48 hours of training are needed every time a change is made.
+
+ 
 %-Trainings params
 %-Performance 
 %-Pause physics
