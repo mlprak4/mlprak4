@@ -27,10 +27,19 @@ These settings allowed us to complete 3 to 4 million iterations per day. The plo
 %-Loss + Reward plots
 
 \subsection{Reward function}
--to ease development of reward function -> coloring
--plot distance 
+The behaviour of the car is controlled through the reward function, hence any changes need to be done advisedly. As soon as the framework was up and running almost the entire development time was designated for testing of various functions. 
 
+To ease development we decided to display a color coding of the current reward directly on the vehicle. This allowed us to check, before launching a new training, if the changes made to the reward function promised noteworthy gains or if they contained any errors.
+%-to ease development of reward function -> coloring
+%-plot distance 
 \subsubsection{Distance based}
--Reward lacks immediate feedback
+A distance function serves as an intuitive starting point to teach the car where it is currently located in relation to the road. There are several problems with this simple approach though. The current distance is not a result of the currently chosen action, but the one of the past actions up to this point. While Q-learning methods do account for this, having a delayed reward does drag out the training time. Furthermore there is no feedback concerning the cars orientation in relation to the road. This can result in good rewards even though the car is arbitrarily oriented. As a consequence driving behaviour will be anything but smooth.
+%-Reward lacks immediate feedback
 \subsubsection{Distance and Action based}
-Subsubsection text here.
+To tackle the lack of immeadite feedback we used several action assessments. Depending on the current state, some actions can only be decremental and should therefore be punished while others may be benefitial and should be rewarded. One important thing to note here is to handle the balance between distance and action based rewards with care. If one is weighted too heavily, the other one might get ignored, resulting in a performance decrease.
+
+First we added a punishment if the car was on one side of the road, oriented away from it and also steering away from it. While this might be a useful action for advanced tasks, it is not at any time helpful to stay in the lane.
+
+Next was optimizing the behaviour on a straight road. We give an additional reward if the car is located on a straight road, is in proximity to the center of the lane and chooses to steer straight.
+
+Lastly we punished countersteering in curves. While human drivers often do exploit this to stay in lane, we hoped for a smoother result if the car made less use of it.
