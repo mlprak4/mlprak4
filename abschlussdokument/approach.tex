@@ -2,7 +2,7 @@
 
 \section{Approach}
 
-In order to solve the task of autonomous driving in the simulation environment we had to make some important decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions including straight, left, right, half left and half right. The angles of left and right were chosen that the car can easily complete every curve. The actions and their values are listed in \ref{woauchimmer}. To support the mentioned input and generate the required output the given network was altered as described in the following section.
+In order to solve the task of autonomous driving in the simulation environment we had to make some fundamental decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions including straight, left, right, half left and half right. The angles of left and right were chosen that the car can easily complete every curve. The actions and their values are listed in \ref{woauchimmer}. To support the mentioned input and generate the required output the given network was altered as described in the following section.
 
 \subsection{Network}
 The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. Instead of four frames we process only one frame at a time, because lane following at constant speed does not require temporal context. The size of the input image is reduced to 48 $\times$ 27. At this resolution the camera image still contains enough information on the lane markings. The network has two convolution layers and two fully connected layers. Both convolutional layers use 4 $\times$ 4 kernels with a stride of 2. Layer one learns 16 filters, while layer two learns 32. The first fully connected layer has 256 neurons. The second fully connected layer computes 5 outputs, which represent the Q value for each action.
@@ -20,6 +20,12 @@ For the network an initial learning rate of $10^{-5}$ is chosen, which is decrea
 
 These settings allowed us to complete 3 to 4 million iterations per day. The plots in figure \ref{fig:lossandrew} show that the training is finished after 6 million iterations. That means that approximately 48 hours of training are needed every time a change is made.
 
+\begin{figure}[!t]
+\centering
+\includegraphics[width=3.5in]{../presentation/both-plot.jpg} 
+\caption{The left plot shows the loss of the network for one training. The right plot shows the reward collected by the car. After approximately 4 million iterations both values converge.}
+\label{fig:lossandrew}
+\end{figure}
  
 %-Trainings params
 %-Performance 
@@ -29,7 +35,7 @@ These settings allowed us to complete 3 to 4 million iterations per day. The plo
 \subsection{Reward function}
 The behaviour of the car is controlled through the reward function, hence any changes need to be done advisedly. As soon as the framework was up and running almost the entire development time was designated for testing of various functions. 
 
-To ease development we decided to display a color coding of the current reward directly on the vehicle. This allowed us to check, before launching a new training, if the changes made to the reward function promised noteworthy gains or if they contained any errors.
+To ease development we decided to display a color coding of the current reward directly on the vehicle. This allowed us to check, before launching a new training, if the changes made to the reward function promised noteworthy gains or if they contained any errors. 
 %-to ease development of reward function -> coloring
 %-plot distance 
 \subsubsection{Distance based}
