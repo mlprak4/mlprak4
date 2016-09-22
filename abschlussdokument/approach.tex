@@ -12,9 +12,9 @@ The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. 
 %-Output / Actions
 
 \subsection{Training}
-The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. 
+The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. We also limit the length of an episode to 10k actions, to ensure a valid position of the car. An episode may end before reaching this limit, if the car leaves the driving lane. At the beginning of each episode the car is randomly placed on the track.
 
-In training the weights of the network are adjusted every iteration. Normally the simulation continues while updating the weights. To avoid frame skips in training that are not present while evaluating, we decided to pause the simulation while updating the weights.
+In training the weights of the network are adjusted every iteration. By default the simulation continues while updating the weights. To avoid frame skips in training that are not present while evaluating, we decided to pause the simulation while updating the weights.
 
 For the network an initial learning rate of $10^{-5}$ is chosen, which is decreased by a factor of 0.1 every 2 million iterations.
 
