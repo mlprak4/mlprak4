@@ -1,6 +1,10 @@
 %!TEX root = bare_conf.tex
 
-\section{Discussion}
--obstacles
--deltas
--real world
+\section{Discussion}\label{sec:discussion}
+
+%-obstacles
+%-deltas
+%-real world
+From this project we can draw some conclusions. Firstly, selection of reward functions is very important. With a bad reward function the agent could learn nothing. Secondly, the training can also be successful even with a small net and small image. The deep neural networks we used is much smaller than the ones such as AlexNet or VGG. Finally, improper actions can lead to bad performance. For example, when we set the car a large speed, it can not follow the lanes any more.
+
+However, it is difficult to transfer the success of this project to an application for real self-driving cars. In order to get more realistic results some further experiments could be carried out. For instance, the car can be trained on more complex routes with traffic, crossing or obstacles. Furthermore, the steering angle in the actions must not remain fixed. They could have a ``delta'' increment. So the actions for turning could be ``more'' or ``less'' left and ``more'' or ``less'' right. We could take current steering angle along with the image as input of DQN. With this the car should also run smoothly at curves. 

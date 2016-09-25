@@ -1,8 +1,59 @@
-This is BibTeX, Version 0.99dThe top-level auxiliary file: bare_conf.aux
+This is BibTeX, Version 0.99d (TeX Live 2016)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: bare_conf.aux
 The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
 Database file #1: bib.bib
 -- IEEEtran.bst version 1.12 (2007/01/11) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in yudeep
+Warning--empty year in yudeep
 
 Done.
+You've used 4 entries,
+            4024 wiz_defined-function locations,
+            830 strings with 8085 characters,
+and the built_in function-call counts, 2737 in all, are:
+= -- 185
+> -- 102
+< -- 12
++ -- 52
+- -- 22
+* -- 151
+:= -- 416
+add.period$ -- 8
+call.type$ -- 4
+change.case$ -- 4
+chr.to.int$ -- 30
+cite$ -- 6
+duplicate$ -- 199
+empty$ -- 220
+format.name$ -- 26
+if$ -- 599
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 42
+newline$ -- 37
+num.names$ -- 4
+pop$ -- 118
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 2
+skip$ -- 195
+stack$ -- 0
+substring$ -- 74
+swap$ -- 141
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 5
+type$ -- 4
+warning$ -- 2
+while$ -- 8
+width$ -- 5
+write$ -- 57
+(There were 2 warnings)

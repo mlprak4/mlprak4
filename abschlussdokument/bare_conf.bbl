@@ -29,4 +29,19 @@ V.~Mnih, K.~Kavukcuoglu, D.~Silver, A.~Graves, I.~Antonoglou, D.~Wierstra, and
   \url{http://arxiv.org/abs/1312.5602}
 \BIBentrySTDinterwordspacing
 
+\bibitem{yudeep}
+A.~Yu, R.~Palefsky-Smith, and R.~Bedi, ``Deep reinforcement learning for
+  simulated autonomous vehicle control.''
+
+\bibitem{chen2015deepdriving}
+C.~Chen, A.~Seff, A.~Kornhauser, and J.~Xiao, ``Deepdriving: Learning
+  affordance for direct perception in autonomous driving,'' in
+  \emph{Proceedings of the IEEE International Conference on Computer Vision},
+  2015, pp. 2722--2730.
+
+\bibitem{jia2014caffe}
+Y.~Jia, E.~Shelhamer, J.~Donahue, S.~Karayev, J.~Long, R.~Girshick,
+  S.~Guadarrama, and T.~Darrell, ``Caffe: Convolutional architecture for fast
+  feature embedding,'' \emph{arXiv preprint arXiv:1408.5093}, 2014.
+
 \end{thebibliography}

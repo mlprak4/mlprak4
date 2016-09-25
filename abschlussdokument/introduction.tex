@@ -1,8 +1,10 @@
 %!TEX root = bare_conf.tex
 
 \section{Introduction}
-% no \IEEEPARstart
--Autonomous Driving + RL blabla?
--Task description
-	-Based on DQN\cite{Mnih13} of Atari as related work
--
+
+Recently, autonomous driving is a hot discussed topic. The approaches used for autonomous driving can be considered as two major classes: mediated perception and behavior reflex. The first one treat the whole system as a combination of multiple sub-systems. Each sub-system take responsibility for a specific task, such as lanes detections, traffic lights detection or pedestrians detection etc.. Most of them use complex and expensive hardware to get good autonomous ability. The features got from each sub-systems will be fused together and make correspond decisions. Compared with the first one, there are no mediated sub-system in the second approach. The decision is made directly from the raw sensor data. It allows us to employ some cheap sensors such as common cameras. It just like human drivers, who mainly just use the eyes as sensor. We will use this approach in this paper.
+
+The success of deep learning on image processing make it possible to extract representative features from raw images. Reinforcement learning is a powerful tool to address problem in decision making. Deep Q learning(DQN) combines both of the two learning methods. It use a deep neural network(especially convolutional neural network) as an approximation of Q-function. It was firstly introduced in \cite{Mnih13} and with it they achieved  a human level results on playing Atari. So one may ask is it possible to utilize DQN to control a self-driving car? A Yu et al. \cite{yudeep} had proved it was successful in autonomous control of the vehicle in a Java Script based game with DQN. And Chen et al. \cite{chen2015deepdriving} made it possible to let the car drive itself in a more complicated environment. In this paper we will show how a car run autonomously with DQN in a simulated environment which is similar to the real world. 
+
+In Section \ref{sec:setup} we will introduce the fundamental architecture and setup of our system. The approach, including Network, Training and reward function, will be discussed in Section \ref{sec:approach}. Then we will show the evaluation and results in Section \ref{sec:evaluation}. In Section \ref{sec:discussion} we will make a discussion and outlook of our works. 
+
