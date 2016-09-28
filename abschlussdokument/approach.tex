@@ -12,7 +12,7 @@ The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. 
 %-Output / Actions
 
 \subsection{Training}
-The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. We also limit the length of an episode to 10k actions, to ensure a valid position of the car. An episode may end before reaching this limit, if the car leaves the driving lane. At the beginning of each episode the car is randomly placed on the track.
+The framework used for training is an implementation of the paper ''Playing Atari with Deep Reinforcement Learning``  created by Peter Wolf. We altered some training parameters to adapt the framework to our needs. Therefore we set the size of the replay memory to 500k, in order to use the maximum memory available on the machine which was 16GB. The exploration value varied from 2 million Iterations up to 5 million, depending on the estimated training complexity. We also limit the length of an episode to 10k actions, to ensure a valid position of the car. An episode may end before reaching this limit, if the car leaves the driving lane. At the beginning of each episode the car is randomly placed on the track. This is done to ensure the entire track gets explored early on.
 
 In training the weights of the network are adjusted every iteration. By default the simulation continues while updating the weights. To avoid frame skips in training that are not present while evaluating, we decided to pause the simulation while updating the weights.
 
@@ -23,7 +23,7 @@ These settings allowed us to complete 3 to 4 million iterations per day. The plo
 \begin{figure}[!t]
 \centering
 \includegraphics[width=3.5in]{../presentation/both-plot.jpg} 
-\caption{Left: Loss of the network for one training. Right: Reward collected by the car. After approximately 4 million iterations both values converge.}
+\caption{Left: Loss of the network for one training. Right: Reward collected by the car. After approximately 4 million iterations both values are converged.}
 \label{fig:lossandrew}
 \end{figure}
  
@@ -42,7 +42,7 @@ To ease development we decided to display a color coding of the current reward d
 A distance function serves as an intuitive starting point to teach the car where it is currently located in relation to the road. There are several problems with this simple approach though. The current distance is not a result of the currently chosen action, but the one of the past actions up to this point. While Q-learning methods do account for this, having a delayed reward does drag out the training time. Furthermore there is no feedback concerning the cars orientation in relation to the road. This can result in good rewards even though the car is arbitrarily oriented. As a consequence driving behaviour will be anything but smooth.
 %-Reward lacks immediate feedback
 \subsubsection{Distance and Action based}
-To tackle the lack of immeadite feedback we used several action assessments. Depending on the current state, some actions can only be decremental and should therefore be punished while others may be benefitial and should be rewarded. One important thing to note here is to handle the balance between distance and action based rewards with care. If one is weighted too heavily, the other one might get ignored, resulting in a performance decrease.
+To tackle the lack of immediate feedback we used several action assessments. Depending on the current state, some actions can only be decremental and should therefore be punished while others may be beneficial and should be rewarded. One important thing to note here is to handle the balance between distance and action based rewards with care. If one is weighted too heavily, the other one might get ignored, resulting in a performance decrease.
 
 First we added a punishment if the car was on one side of the road, oriented away from it and also steering away from it. While this might be a useful action for advanced tasks, it is not at any time helpful to stay in the lane.
 
