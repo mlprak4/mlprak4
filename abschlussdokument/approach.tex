@@ -2,7 +2,7 @@
 
 \section{Approach}\label{sec:approach}
 
-In order to solve the task of autonomous driving in the simulation environment we had to make some fundamental decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions. The angles of \textit{Left} and \textit{Right} were chosen that the car complete even the tightest curves. The actions and their values are listed below. To support the mentioned input and generate the required output the given network was altered as described in the following section.
+In order to solve the task of autonomous driving in the simulation environment we had to make some fundamental decisions. First of all we specified our input source. The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions. The angles of \textit{Left} and \textit{Right} were chosen that the car complete even the tightest curves. The actions and their values are listed below. To support the mentioned input and generate the required output the given network was altered as described in the following section.
 \begin{center}
 	\begin{tabular}{ l | r | l }
 							&	angle	& speed\\
@@ -30,7 +30,7 @@ In training the weights of the network are adjusted every iteration. By default 
 
 For the network an initial learning rate of $10^{-5}$ is chosen, which is decreased by a factor of 0.1 every 2 million iterations.
 
-These settings allowed us to complete 3 to 4 million iterations per day. The plots in figure \ref{fig:lossandrew} show that the training is finished after 6 million iterations. That means that approximately 48 hours of training are needed every time a change is made.
+These settings allowed us to complete 3 to 4 million training iterations per day. The plots in figure \ref{fig:lossandrew} show that the training is finished after 6 million iterations. That means that approximately 48 hours of training are needed every time a change is made.
 
 \begin{figure}[!t]
 \centering
