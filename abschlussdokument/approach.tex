@@ -2,10 +2,22 @@
 
 \section{Approach}\label{sec:approach}
 
-In order to solve the task of autonomous driving in the simulation environment we had to make some fundamental decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions including straight, left, right, half left and half right. The angles of left and right were chosen that the car can easily complete every curve. The actions and their values are listed in \ref{woauchimmer}. To support the mentioned input and generate the required output the given network was altered as described in the following section.
+In order to solve the task of autonomous driving in the simulation environment we had to make some fundamental decisions. First of all we specified our input source.The image of a front facing camera was chosen as input, because it provides more than enough information for this task. Secondly we decided to use an action set of five actions. The angles of \textit{Left} and \textit{Right} were chosen that the car complete even the tightest curves. The actions and their values are listed below. To support the mentioned input and generate the required output the given network was altered as described in the following section.
+\begin{center}
+	\begin{tabular}{ l | r | l }
+							&	angle	& speed\\
+		\hline
+		\textit{Left} 		& 	-0.4 	& 0.6	\\
+		\textit{Half-left} 	& 	-0.2 	& 0.6	\\
+		\textit{Straight} 	& 	0 		& 0.6	\\
+		\textit{Half-right} & 	0.2 	& 0.6	\\
+		\textit{Right} 		& 	0.4 	& 0.6	\\
+	\end{tabular}
+	\label{actionset}
+\end{center}
 
 \subsection{Network}
-The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. Instead of four frames we process only one frame at a time, because lane following at constant speed does not require temporal context. The size of the input image is reduced to 48 $\times$ 27. At this resolution the camera image still contains enough information on the lane markings. The network has two convolution layers and two fully connected layers. Both convolutional layers use 4 $\times$ 4 kernels with a stride of 2. Layer one learns 16 filters, while layer two learns 32. The first fully connected layer has 256 neurons. The second fully connected layer computes 5 outputs, which represent the Q value for each action.
+The network we use is based on the one introduced by Mnih et al. \cite{Mnih13}. Instead of four frames we process only one frame at a time, because lane following at constant speed does not require temporal context. The input image is reduced to 48 $\times$ 27 grayscale. At this resolution the camera image still contains enough information on the lane markings. The network has two convolution layers and two fully connected layers. Both convolutional layers use 4 $\times$ 4 kernels with a stride of 2. Layer one learns 16 filters, while layer two learns 32. The first fully connected layer has 256 neurons. The second fully connected layer computes 5 outputs, which represent the Q value for each action.
 
 %-Structure + Parameters
 %-Input
@@ -32,6 +44,30 @@ These settings allowed us to complete 3 to 4 million iterations per day. The plo
 %-Pause physics
 %-Loss + Reward plots
 
+\begin{figure}[!t]
+\centering
+\includegraphics[scale=0.24]{../plots/track_both}
+\caption{Left: Training track divided in six sections. Right: Additional test track with vehicle.}
+\label{track}
+\end{figure}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[scale=0.265]{../plots/dist_eval_log_distance_serpentine_06speed}
+\vspace{0.5em}
+\includegraphics[scale=0.265]{../plots/ang_eval_log_distance_serpentine_06speed}
+\vspace{-2.25em}
+\caption{Distance-only approach. Distance in meters, angle in degrees.}
+\label{distance06}
+\vspace{1em}
+\includegraphics[scale=0.265]{../plots/dist_eval_log_dumb_actions_serpentine_06speed}
+\vspace{0.5em}
+\includegraphics[scale=0.265]{../plots/ang_eval_log_dumb_actions_serpentine_06speed}
+\vspace{-2.25em}
+\caption{First action punishment added. Distance in meters, angle in degrees.}
+\label{dumbactions06}
+\end{figure*}
+
 \subsection{Reward function}
 The behaviour of the car is controlled through the reward function, hence any changes need to be done advisedly. As soon as the framework was up and running almost the entire development time was designated for testing of various functions. 
 
@@ -39,8 +75,9 @@ To ease development we decided to display a color coding of the current reward d
 %-to ease development of reward function -> coloring
 %-plot distance 
 \subsubsection{Distance based}
-A distance function serves as an intuitive starting point to teach the car where it is currently located in relation to the road. There are several problems with this simple approach though. The current distance is not a result of the currently chosen action, but the one of the past actions up to this point. While Q-learning methods do account for this, having a delayed reward does drag out the training time. Furthermore there is no feedback concerning the cars orientation in relation to the road. This can result in good rewards even though the car is arbitrarily oriented. As a consequence driving behaviour will be anything but smooth.
-%-Reward lacks immediate feedback
+A distance function serves as an intuitive starting point to teach the car where it is currently located in relation to the road. There are several problems with this simple approach though. The current distance is not a result of the currently chosen action, but the one of the past actions up to this point. While Q-learning methods do account for this, having a delayed reward does drag out the training time. Furthermore there is no feedback concerning the cars orientation in relation to the road. This can result in good rewards even though the car is arbitrarily oriented. As a consequence driving behaviour will be anything but smooth. The distance function we used was:
+\[ r_D(d) = 2 - (|d| + 1)^6 \]
+Where d is the distance in meters to the center of the lane. We wanted a maximum distance reward of +1 followed by a steep fall off to both sides of the lane.
 \subsubsection{Distance and Action based}
 To tackle the lack of immediate feedback we used several action assessments. Depending on the current state, some actions can only be decremental and should therefore be punished while others may be beneficial and should be rewarded. One important thing to note here is to handle the balance between distance and action based rewards with care. If one is weighted too heavily, the other one might get ignored, resulting in a performance decrease.
 
@@ -49,3 +86,14 @@ First we added a punishment if the car was on one side of the road, oriented awa
 Next was optimizing the behaviour on a straight road. We give an additional reward if the car is located on a straight road, is in proximity to the center of the lane and chooses to steer straight.
 
 Lastly we punished countersteering in curves. While human drivers often do exploit this to stay in lane, we hoped for a smoother result if the car made less use of it.
+
+As they are separated by situation and action, only one of the above action reward rules can trigger at any given time. Considering the above rules we decide for a given state x and action a whether the usage of a in x is beneficial $(x, a) \in B$, or decremental $(x, a) \in D$.
+\[ r_A(x, a) = 
+	\begin{cases}
+		+1	&	, (x, a) \in B\\
+		-1	&	, (x, a) \in D\\		
+		0	&	, else\\
+	\end{cases}
+\]
+The reward function is obtained by simple addition. The distance reward was capped to keep the balance between $r_D$ and $r_A$ intact for larger distances. 
+\[ r = \max(r_D\text{, }-2) + r_A \]
