@@ -78,7 +78,7 @@ To ease development we decided to display a color coding of the current reward d
 \subsubsection{Distance based}
 A distance function serves as an intuitive starting point to teach the car where it is currently located in relation to the road. There are several problems with this simple approach though. The current distance is not a result of the currently chosen action, but the one of the past actions up to this point. While Q-learning methods do account for this, having a delayed reward does drag out the training time. Furthermore there is no feedback concerning the cars orientation in relation to the road. This can result in good rewards even though the car is arbitrarily oriented. As a consequence driving behaviour will be anything but smooth. The distance function we used was:
 \[ r_D(d) = 2 - (|d| + 1)^6 \]
-Where d is the distance in meters to the center of the lane. We wanted a maximum distance reward of +1 followed by a steep fall off to both sides of the lane.
+Where $d$ is the distance in meters to the center of the lane. We wanted a maximum distance reward of +1 followed by a steep fall off to both sides of the lane.
 \subsubsection{Distance and Action based}
 To tackle the lack of immediate feedback we used several action assessments. Depending on the current state, some actions can only be decremental and should therefore be punished while others may be beneficial and should be rewarded. One important thing to note here is to handle the balance between distance and action based rewards with care. If one is weighted too heavily, the other one might get ignored, resulting in a performance decrease.
 
