@@ -88,7 +88,7 @@ Next was optimizing the behaviour on a straight road. We give an additional rewa
 
 Lastly we punished countersteering in curves. While human drivers often do exploit this to stay in lane, we hoped for a smoother result if the car made less use of it.
 
-As they are separated by situation and action, only one of the above action reward rules can trigger at any given time. Considering the above rules we decide for a given state x and action a whether the usage of a in x is beneficial $(x, a) \in B$, or decremental $(x, a) \in D$.
+As they are separated by situation and action, only one of the above action reward rules can trigger at any given time. Considering the above rules we decide for a given state $x$ and action $a$ whether the usage of $a$ in $x$ is beneficial $(x, a) \in B$, or decremental $(x, a) \in D$.
 \[ r_A(x, a) = 
 	\begin{cases}
 		+1	&	, (x, a) \in B\\
